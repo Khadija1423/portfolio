@@ -24,6 +24,10 @@ app.use(cors());
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/upload', require('./routes/uploadRoutes'));
+app.use('/api/projects', require('./routes/projectRoutes'));
+app.use('/api/blogs', require('./routes/blogRoutes'));
+app.use('/api/skills', require('./routes/skillRoutes'));
+app.use('/api/certificates', require('./routes/certificateRoutes'));
 
 // Basic route
 app.get('/', (req, res) => {

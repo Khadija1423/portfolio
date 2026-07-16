@@ -40,4 +40,12 @@ const seedAdminUser = async () => {
   }
 };
 
-module.exports = seedAdminUser;
+const connectDB = require('./db');
+
+const seedDB = async () => {
+    await connectDB();
+    await seedAdminUser();
+    process.exit();
+}
+
+seedDB();

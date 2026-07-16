@@ -21,6 +21,9 @@ app.use(cookieParser());
 // Enable CORS
 app.use(cors());
 
+// Routes
+app.use('/api/auth', require('./routes/authRoutes'));
+
 // Basic route
 app.get('/', (req, res) => {
   res.send('API is running...');

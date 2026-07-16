@@ -23,6 +23,7 @@ app.use(cors());
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/upload', require('./routes/uploadRoutes'));
 
 // Basic route
 app.get('/', (req, res) => {

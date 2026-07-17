@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "title": "E-Commerce Dashboard",
+    "slug": "ecommerce-dashboard",
+    "summary": "A robust admin dashboard for managing products, orders, and analytics.",
+    "description": "A comprehensive full-stack solution designed to give store owners deep insights into their inventory, sales trends, and customer demographics.",
+    "thumbnail": "/content-images/projects/ecommerce-thumb.png",
+    "gallery": [
+      "/content-images/projects/ecommerce-1.png",
+      "/content-images/projects/ecommerce-2.png"
+    ],
+    "githubUrl": "https://github.com",
+    "liveUrl": "https://example.com",
+    "technologies": ["React", "Node.js", "MongoDB"],
+    "category": "Full-stack",
+    "featured": true
+  },
+  {
+    "id": "2",
+    "title": "AI Image Generator",
+    "slug": "ai-image-generator",
+    "summary": "Web app utilizing OpenAI API to generate and save unique images.",
+    "description": "Built as a weekend hackathon project to explore the OpenAI API limits and image optimization.",
+    "thumbnail": "/content-images/projects/ai-thumb.png",
+    "gallery": [],
+    "githubUrl": "https://github.com",
+    "liveUrl": "https://example.com",
+    "technologies": ["React", "OpenAI", "Tailwind"],
+    "category": "AI/ML",
+    "featured": false
+  },
+  {
+    "id": "3",
+    "title": "Minimalist Portfolio",
+    "slug": "minimalist-portfolio",
+    "summary": "A clean, high-performance portfolio template for creatives.",
+    "description": "An open-source portfolio template designed for ultra-fast load times using plain HTML and CSS.",
+    "thumbnail": "/content-images/projects/portfolio-thumb.png",
+    "gallery": [],
+    "githubUrl": "https://github.com",
+    "liveUrl": "https://example.com",
+    "technologies": ["HTML", "CSS", "JavaScript"],
+    "category": "Frontend",
+    "featured": true
+  }
+]

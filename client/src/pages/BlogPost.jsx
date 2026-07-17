@@ -1,59 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css'; // Consistent dark theme for code blocks
 import { ArrowLeft } from 'lucide-react';
+import blogsData from '../../content/blogs.json';
 
 const BlogPost = () => {
   const { id } = useParams();
+  const [post, setPost] = useState(null);
 
-  // Mock Data
-  const [post, setPost] = useState({
-    title: 'Mastering the Neo-Brutalist Web Aesthetic',
-    date: 'Oct 24, 2024',
-    readTime: 5,
-    tags: ['Design', 'CSS'],
-    views: 1240,
-    content: `
-Neo-brutalism is a reaction to the overly-polished, sterile corporate memphis style that dominated the 2010s. It embraces rawness, stark contrasts, and intentional "ugliness" that actually demands high design skill to pull off.
+  useEffect(() => {
+    const foundPost = blogsData.find(p => p.id === id);
+    if (foundPost) {
+        const wordsPerMinute = 200;
+        const noOfWords = foundPost.content ? foundPost.content.split(/\s/g).length : 0;
+        const readTime = Math.ceil(noOfWords / wordsPerMinute) || 1;
 
-## Core Tenets
+        setPost({
+            ...foundPost,
+            readTime,
+            date: foundPost.date || 'Recent',
+            views: Math.floor(Math.random() * 5000) // Mocking view count
+        });
+    }
+  }, [id]);
 
-1.  **High Contrast:** Use pure blacks, pure whites, and highly saturated primary colors.
-2.  **Visible Borders:** Don't hide the boundaries. Draw thick black lines around cards, inputs, and sections.
-3.  **Hard Shadows:** Avoid soft blurs. Drop shadows should be solid blocks of color offset from the element.
-
-Here is an example of how you can create a Neo-brutalist card using Tailwind CSS:
-
-\`\`\`css
-/* index.css */
-@layer components {
-  .neo-card {
-    @apply border-2 border-black bg-white transition-transform cursor-pointer;
-    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
-  }
-
-  .neo-card:hover {
-    @apply -translate-y-1 translate-x-1;
-    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-  }
-}
-\`\`\`
-
-\`\`\`jsx
-// Component.jsx
-<div className="neo-card p-6">
-  <h2 className="text-2xl font-black uppercase">Bold Header</h2>
-  <p>Don't be afraid to make a statement.</p>
-</div>
-\`\`\`
-
-Notice how the hover effect translates the element up and left while extending the shadow down and right. This creates a tactile, physical "pressing" effect that feels very responsive.
-    `
-  });
-
-  if (!post) return <div className="py-20 text-center font-bold">Loading...</div>;
+  if (!post) return <div className="py-20 text-center font-bold text-xl">Loading...</div>;
 
   return (
     <div className="py-12 max-w-3xl mx-auto">

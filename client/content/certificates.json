@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "title": "AWS Certified Developer - Associate",
+    "issuer": "Amazon Web Services",
+    "credentialUrl": "https://aws.amazon.com/certification/",
+    "issueDate": "2023-11-15",
+    "image": "/content-images/certificates/aws-dev.png"
+  },
+  {
+    "id": "2",
+    "title": "Meta Front-End Developer Professional Certificate",
+    "issuer": "Coursera",
+    "credentialUrl": "https://coursera.org",
+    "issueDate": "2022-08-20",
+    "image": "/content-images/certificates/meta-frontend.png"
+  }
+]

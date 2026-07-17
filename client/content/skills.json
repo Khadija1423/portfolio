@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "name": "JavaScript",
+    "level": 95,
+    "category": "Languages",
+    "displayOrder": 1
+  },
+  {
+    "id": "2",
+    "name": "React",
+    "level": 90,
+    "category": "Frontend",
+    "displayOrder": 2
+  },
+  {
+    "id": "3",
+    "name": "Node.js",
+    "level": 85,
+    "category": "Backend",
+    "displayOrder": 3
+  },
+  {
+    "id": "4",
+    "name": "Python",
+    "level": 75,
+    "category": "Languages",
+    "displayOrder": 4
+  },
+  {
+    "id": "5",
+    "name": "Tailwind CSS",
+    "level": 95,
+    "category": "Frontend",
+    "displayOrder": 5
+  },
+  {
+    "id": "6",
+    "name": "PostgreSQL",
+    "level": 80,
+    "category": "Backend",
+    "displayOrder": 6
+  }
+]

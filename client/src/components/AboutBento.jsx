@@ -3,6 +3,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import DynamicTime from './DynamicTime';
+import skillsData from '../../content/skills.json';
+import certificatesData from '../../content/certificates.json';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,6 +81,32 @@ const AboutBento = () => {
                         <h4 className="text-xl font-black text-light-accent dark:text-dark-accent">{item.year}</h4>
                         <p className="text-lg font-medium">{item.event}</p>
                     </div>
+                ))}
+            </div>
+        </div>
+
+        {/* Skills Section */}
+        <div className="neo-card p-8 md:col-span-3">
+            <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Top Skills</h3>
+            <div className="flex flex-wrap gap-3">
+                {skillsData.map((skill) => (
+                    <div key={skill.id} className="border-2 border-light-border dark:border-dark-border px-4 py-2 bg-light-bg dark:bg-dark-bg font-bold uppercase text-sm flex items-center gap-2">
+                        <span>{skill.name}</span>
+                        <span className="text-light-accent dark:text-dark-accent">{skill.level}%</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        {/* Certificates Section */}
+        <div className="neo-card p-8 md:col-span-3">
+            <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Certifications</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {certificatesData.map((cert) => (
+                    <a key={cert.id} href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="border-2 border-light-border dark:border-dark-border p-4 hover:bg-light-accent hover:text-white dark:hover:bg-dark-accent dark:hover:text-black transition-colors block">
+                        <h4 className="font-bold text-lg mb-1">{cert.title}</h4>
+                        <p className="text-sm font-medium">{cert.issuer} • {cert.issueDate}</p>
+                    </a>
                 ))}
             </div>
         </div>

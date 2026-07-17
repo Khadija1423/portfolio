@@ -2,23 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { ArrowLeft } from 'lucide-react';
+import projectsData from '../../content/projects.json';
 
 const ProjectDetails = () => {
   const { id } = useParams();
+  const [project, setProject] = useState(null);
 
-  // Mock data for initial UI
-  const [project, setProject] = useState({
-    title: 'E-Commerce Dashboard',
-    category: 'Full-stack',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Tailwind'],
-    githubUrl: '#',
-    liveUrl: '#',
-    overview: 'A comprehensive full-stack solution designed to give store owners deep insights into their inventory, sales trends, and customer demographics.',
-    features: '- Real-time inventory tracking\n- Sales analytics visualization\n- Role-based access control\n- Stripe payment integration',
-    architecture: 'The application uses a standard MERN stack. The frontend is a React SPA communicating with an Express API. MongoDB serves as the primary data store, with Redis used for caching session data.',
-    challenges: 'Handling concurrent inventory updates during high-traffic sales events required implementing optimistic concurrency control on the database level.',
-    lessonsLearned: 'I gained significant experience in database transaction management and learned how to build highly reusable charting components.'
-  });
+  useEffect(() => {
+    const foundProject = projectsData.find(p => p.id === id);
+    setProject(foundProject);
+  }, [id]);
 
   if (!project) return <div className="py-20 text-center font-bold text-xl">Loading...</div>;
 
@@ -61,10 +54,10 @@ const ProjectDetails = () => {
 
         <div className="prose dark:prose-invert prose-lg max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight prose-a:text-light-accent dark:prose-a:text-dark-accent">
 
-            {project.overview && (
+            {project.description && (
                 <div className="mb-12">
-                    <h2 className="text-3xl border-l-4 border-light-accent dark:border-dark-accent pl-4 mb-4">Overview</h2>
-                    <ReactMarkdown>{project.overview}</ReactMarkdown>
+                    <h2 className="text-3xl border-l-4 border-light-accent dark:border-dark-accent pl-4 mb-4">Description</h2>
+                    <ReactMarkdown>{project.description}</ReactMarkdown>
                 </div>
             )}
 

@@ -1,35 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import projectsData from '../../content/projects.json';
 
 const Projects = () => {
-  // Mock data for initial UI before API integration
-  const [projects, setProjects] = useState([
-    {
-      _id: '1',
-      title: 'E-Commerce Dashboard',
-      slug: 'ecommerce-dashboard',
-      summary: 'A robust admin dashboard for managing products, orders, and analytics.',
-      category: 'Full-stack',
-      technologies: ['React', 'Node.js', 'MongoDB']
-    },
-    {
-      _id: '2',
-      title: 'AI Image Generator',
-      slug: 'ai-image-generator',
-      summary: 'Web app utilizing OpenAI API to generate and save unique images.',
-      category: 'AI/ML',
-      technologies: ['React', 'OpenAI', 'Tailwind']
-    },
-    {
-      _id: '3',
-      title: 'Minimalist Portfolio',
-      slug: 'minimalist-portfolio',
-      summary: 'A clean, high-performance portfolio template for creatives.',
-      category: 'Frontend',
-      technologies: ['HTML', 'CSS', 'JavaScript']
-    }
-  ]);
-
+  const [projects] = useState(projectsData);
   const [filter, setFilter] = useState('All');
 
   const categories = ['All', 'Frontend', 'Full-stack', 'AI/ML', 'Other'];
@@ -64,7 +38,7 @@ const Projects = () => {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredProjects.map((project) => (
-          <div key={project._id} className="neo-card p-6 flex flex-col">
+          <div key={project.id} className="neo-card p-6 flex flex-col">
             <div className="mb-4">
               <span className="text-xs font-bold uppercase tracking-widest text-light-accent dark:text-dark-accent mb-2 block">
                 {project.category}
@@ -83,7 +57,7 @@ const Projects = () => {
 
             <div className="mt-auto grid grid-cols-3 gap-2">
               <Link
-                to={`/projects/${project._id}`}
+                to={`/projects/${project.id}`}
                 className="col-span-3 text-center border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-sm hover:bg-light-accent dark:hover:bg-dark-accent hover:text-white dark:hover:text-black transition-colors"
               >
                 Details

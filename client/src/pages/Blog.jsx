@@ -1,34 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import blogsData from '../../content/blogs.json';
 
 const Blog = () => {
-  // Mock data
-  const [posts, setPosts] = useState([
-    {
-      _id: '1',
-      title: 'Mastering the Neo-Brutalist Web Aesthetic',
-      date: 'Oct 24, 2024',
-      readTime: 5,
-      tags: ['Design', 'CSS'],
-      views: 1240
-    },
-    {
-      _id: '2',
-      title: 'Why I Prefer Postgres over MongoDB for High-Relational Data',
-      date: 'Sep 12, 2024',
-      readTime: 8,
-      tags: ['Database', 'Backend'],
-      views: 890
-    },
-    {
-      _id: '3',
-      title: 'A Deep Dive into React Server Components',
-      date: 'Aug 05, 2024',
-      readTime: 12,
-      tags: ['React', 'Frontend'],
-      views: 3105
-    }
-  ]);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // Process blogs to calculate readTime based on content length
+    const processedBlogs = blogsData.map(blog => {
+      const wordsPerMinute = 200;
+      const noOfWords = blog.content ? blog.content.split(/\s/g).length : 0;
+      const readTime = Math.ceil(noOfWords / wordsPerMinute) || 1;
+      return { ...blog, readTime };
+    });
+    setPosts(processedBlogs);
+  }, []);
 
   return (
     <div className="py-12 max-w-4xl mx-auto">
@@ -42,12 +28,12 @@ const Blog = () => {
       <div className="flex flex-col border-t-4 border-light-border dark:border-dark-border">
         {posts.map((post) => (
           <Link
-            key={post._id}
-            to={`/blog/${post._id}`}
+            key={post.id}
+            to={`/blog/${post.id}`}
             className="group py-8 border-b-2 border-light-border dark:border-dark-border flex flex-col md:flex-row md:items-baseline gap-4 hover:bg-white dark:hover:bg-black transition-colors px-4 -mx-4"
           >
             <div className="w-full md:w-32 flex-shrink-0 text-sm font-bold tracking-widest text-gray-500 dark:text-gray-400 uppercase">
-              {post.date}
+              {post.date || 'Recent'}
             </div>
 
             <div className="flex-grow">
@@ -69,7 +55,8 @@ const Blog = () => {
             </div>
 
             <div className="hidden md:flex text-sm font-bold text-gray-500 dark:text-gray-400 whitespace-nowrap">
-               {post.views.toLocaleString()} views
+               {/* View count mocked for local demo */}
+               {Math.floor(Math.random() * 5000).toLocaleString()} views
             </div>
           </Link>
         ))}

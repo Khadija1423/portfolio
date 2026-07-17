@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
 
 const Layout = ({ children }) => {
@@ -29,14 +30,14 @@ const Layout = ({ children }) => {
       {/* Sticky Glassmorphism Navbar */}
       <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-light-bg/80 dark:bg-dark-bg/80 border-b-2 border-light-border dark:border-dark-border transition-colors duration-300">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="font-bold text-xl tracking-tighter uppercase">
+          <Link to="/" className="font-bold text-xl tracking-tighter uppercase block">
             <span className="text-light-accent dark:text-dark-accent">Agncy</span> Portfolio
-          </div>
+          </Link>
 
           <nav className="hidden md:flex space-x-8 font-medium">
-            <a href="#" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work</a>
-            <a href="#" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">About</a>
-            <a href="#" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Contact</a>
+            <Link to="/projects" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work</Link>
+            <Link to="/blog" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Blog</Link>
+            <a href="#contact" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Contact</a>
           </nav>
 
           <button

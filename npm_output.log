@@ -3,10 +3,10 @@
 > vite
 
 Port 5173 is in use, trying another one...
+Port 5174 is in use, trying another one...
+11:17:26 AM [vite] (client) Re-optimizing dependencies because lockfile has changed
 
-  VITE v8.1.5  ready in 264 ms
+  VITE v8.1.5  ready in 355 ms
 
-  ➜  Local:   http://localhost:5174/
+  ➜  Local:   http://localhost:5175/
   ➜  Network: use --host to expose
-10:37:22 AM [vite] (client) [optimizer] bundling dependencies...
-10:37:22 AM [vite] (client) dependency optimized: gsap/ScrollTrigger

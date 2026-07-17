@@ -22,7 +22,7 @@ const ProjectDetails = () => {
         <span>BACK TO PROJECTS</span>
       </Link>
 
-      <div className="border-4 border-light-border dark:border-dark-border p-8 md:p-12 bg-white dark:bg-black mb-12 relative shadow-[8px_8px_0px_0px_rgba(26,26,26,1)] dark:shadow-[8px_8px_0px_0px_rgba(51,51,51,1)]">
+      <div className="border-4 border-light-border dark:border-dark-border p-8 md:p-12 bg-light-surface dark:bg-dark-surface mb-12 relative shadow-[8px_8px_0px_0px_#3A342A] dark:shadow-[8px_8px_0px_0px_#463C31]">
 
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
             <div>
@@ -35,10 +35,10 @@ const ProjectDetails = () => {
             </div>
 
             <div className="flex flex-col gap-3 min-w-[140px]">
-                <a href={project.liveUrl} className="border-2 border-light-border dark:border-dark-border py-3 px-6 text-center font-bold uppercase text-sm bg-light-accent dark:bg-dark-accent text-white dark:text-black hover:opacity-80 transition-opacity">
+                <a href={project.liveUrl} className="border-2 border-light-border dark:border-dark-border py-3 px-6 text-center font-bold uppercase text-sm bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface hover:opacity-80 transition-opacity">
                     Live Demo
                 </a>
-                <a href={project.githubUrl} className="border-2 border-light-border dark:border-dark-border py-3 px-6 text-center font-bold uppercase text-sm bg-black text-white dark:bg-white dark:text-black hover:opacity-80 transition-opacity">
+                <a href={project.githubUrl} className="border-2 border-light-border dark:border-dark-border py-3 px-6 text-center font-bold uppercase text-sm bg-light-text text-light-surface dark:bg-dark-text dark:text-dark-surface hover:opacity-80 transition-opacity">
                     View Code
                 </a>
             </div>

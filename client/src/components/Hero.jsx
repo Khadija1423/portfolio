@@ -48,7 +48,7 @@ const Hero = () => {
   return (
     <section ref={container} className="min-h-[80vh] flex flex-col md:flex-row border-b-2 border-light-border dark:border-dark-border mb-16">
       {/* Left Side: Static Panel */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center p-8 md:p-16 border-b-2 md:border-b-0 md:border-r-2 border-light-border dark:border-dark-border bg-white dark:bg-black">
+      <div className="w-full md:w-1/2 flex flex-col justify-center p-8 md:p-16 border-b-2 md:border-b-0 md:border-r-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface transition-colors">
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-4">
           Hi, I'm Khadija
         </h1>
@@ -58,7 +58,7 @@ const Hero = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 mt-auto md:mt-12">
           <button
-            className="neo-card px-8 py-4 font-bold uppercase tracking-widest text-sm bg-light-accent dark:bg-dark-accent text-white dark:text-black neo-card-button"
+            className="neo-card px-8 py-4 font-bold uppercase tracking-widest text-sm bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface neo-card-button"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
             [Hire Me]
@@ -67,7 +67,7 @@ const Hero = () => {
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="neo-card px-8 py-4 font-bold uppercase tracking-widest text-sm text-center inline-block bg-white dark:bg-black text-light-text dark:text-dark-text"
+            className="neo-card px-8 py-4 font-bold uppercase tracking-widest text-sm text-center inline-block text-light-text dark:text-dark-text"
           >
             [Download CV]
           </a>

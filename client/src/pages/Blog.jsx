@@ -30,7 +30,7 @@ const Blog = () => {
           <Link
             key={post.id}
             to={`/blog/${post.id}`}
-            className="group py-8 border-b-2 border-light-border dark:border-dark-border flex flex-col md:flex-row md:items-baseline gap-4 hover:bg-white dark:hover:bg-black transition-colors px-4 -mx-4"
+            className="group py-8 border-b-2 border-light-border dark:border-dark-border flex flex-col md:flex-row md:items-baseline gap-4 hover:bg-light-surface dark:hover:bg-dark-surface transition-colors px-4 -mx-4"
           >
             <div className="w-full md:w-32 flex-shrink-0 text-sm font-bold tracking-widest text-gray-500 dark:text-gray-400 uppercase">
               {post.date || 'Recent'}

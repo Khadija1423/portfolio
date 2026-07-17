@@ -26,8 +26,8 @@ const Projects = () => {
             onClick={() => setFilter(cat)}
             className={`px-6 py-2 border-2 border-light-border dark:border-dark-border font-bold uppercase tracking-wider text-sm transition-all duration-200 rounded-none ${
               filter === cat
-                ? 'bg-light-accent dark:bg-dark-accent text-white dark:text-black shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] dark:shadow-[4px_4px_0px_0px_rgba(51,51,51,1)] -translate-y-1'
-                : 'bg-white dark:bg-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(51,51,51,1)]'
+                ? 'bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface shadow-[4px_4px_0px_0px_#3A342A] dark:shadow-[4px_4px_0px_0px_#463C31] -translate-y-1'
+                : 'bg-light-surface dark:bg-dark-surface hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_#3A342A] dark:hover:shadow-[4px_4px_0px_0px_#463C31]'
             }`}
           >
             {cat}
@@ -58,14 +58,14 @@ const Projects = () => {
             <div className="mt-auto grid grid-cols-3 gap-2">
               <Link
                 to={`/projects/${project.id}`}
-                className="col-span-3 text-center border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-sm hover:bg-light-accent dark:hover:bg-dark-accent hover:text-white dark:hover:text-black transition-colors"
+                className="col-span-3 text-center border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-sm hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors"
               >
                 Details
               </Link>
-              <button className="col-span-1 border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-xs bg-black text-white dark:bg-white dark:text-black hover:opacity-80 transition-opacity">
+              <button className="col-span-1 border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-xs bg-light-text text-light-surface dark:bg-dark-text dark:text-dark-surface hover:opacity-80 transition-opacity">
                 Code
               </button>
-              <button className="col-span-2 border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-xs bg-light-accent dark:bg-dark-accent text-white dark:text-black hover:opacity-80 transition-opacity">
+              <button className="col-span-2 border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-xs bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface hover:opacity-80 transition-opacity">
                 Live Demo
               </button>
             </div>

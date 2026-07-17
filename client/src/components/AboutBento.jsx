@@ -56,9 +56,9 @@ const AboutBento = () => {
         </div>
 
         {/* Card D: Status Badge */}
-        <div className="neo-card p-6 flex flex-col items-center justify-center text-center bg-light-accent dark:bg-dark-accent text-white dark:text-black">
+        <div className="neo-card p-6 flex flex-col items-center justify-center text-center bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface">
           <div className="flex items-center space-x-2 font-bold uppercase tracking-widest text-sm mb-2">
-             <div className="w-3 h-3 rounded-full bg-white dark:bg-black animate-pulse"></div>
+             <div className="w-3 h-3 rounded-full bg-light-surface dark:bg-dark-surface animate-pulse"></div>
              <span>Availability</span>
           </div>
           <p className="text-xl font-black">Open for Opportunities</p>

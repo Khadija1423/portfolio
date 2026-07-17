@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
 
           <button
             onClick={toggleTheme}
-            className="p-2 border-2 border-light-border dark:border-dark-border bg-white dark:bg-black rounded-none neo-card-button"
+            className="p-2 border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface rounded-none neo-card-button transition-colors"
             aria-label="Toggle Theme"
           >
             {isDark ? (

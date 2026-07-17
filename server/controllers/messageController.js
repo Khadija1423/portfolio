@@ -27,50 +27,6 @@ const createMessage = async (req, res) => {
   }
 };
 
-const getMessages = async (req, res) => {
-  try {
-    const messages = await Message.find({}).sort({ createdAt: -1 });
-    res.json({ success: true, data: messages });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-const markAsRead = async (req, res) => {
-  try {
-    const message = await Message.findById(req.params.id);
-
-    if (!message) {
-      return res.status(404).json({ success: false, message: 'Message not found' });
-    }
-
-    message.read = true;
-    await message.save();
-
-    res.json({ success: true, data: message });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-const deleteMessage = async (req, res) => {
-  try {
-    const message = await Message.findById(req.params.id);
-
-    if (!message) {
-      return res.status(404).json({ success: false, message: 'Message not found' });
-    }
-
-    await message.deleteOne();
-    res.json({ success: true, message: 'Message removed' });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
 module.exports = {
   createMessage,
-  getMessages,
-  markAsRead,
-  deleteMessage,
 };

@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
+import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Layout = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
+  const location = useLocation();
+  const mainRef = useRef(null);
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   useEffect(() => {
     // Check initial preference from localStorage or OS
@@ -24,6 +33,50 @@ const Layout = ({ children }) => {
       localStorage.setItem('theme', 'light');
     }
   };
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    const updateLenis = (time) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(updateLenis);
+
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+        lenis.destroy();
+        gsap.ticker.remove(updateLenis);
+    };
+  }, [prefersReducedMotion]);
+
+  useGSAP(() => {
+    if (prefersReducedMotion) return;
+
+    // Page Transition
+    const ctx = gsap.context(() => {
+        gsap.fromTo(mainRef.current,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', clearProps: "all" }
+        );
+    });
+
+    return () => ctx.revert();
+  }, [location.pathname, prefersReducedMotion]);
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
@@ -55,7 +108,7 @@ const Layout = ({ children }) => {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main ref={mainRef} className="flex-grow container mx-auto px-4 py-8">
         {children}
       </main>
 

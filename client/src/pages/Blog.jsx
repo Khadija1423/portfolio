@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import blogsData from '../../content/blogs.json';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Blog = () => {
+  const container = useRef(null);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -16,8 +22,33 @@ const Blog = () => {
     setPosts(processedBlogs);
   }, []);
 
+  useGSAP(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const cards = gsap.utils.toArray('.blog-card');
+
+    cards.forEach((card) => {
+      gsap.fromTo(card,
+        { opacity: 0, x: -30 },
+        {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 90%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 1,
+          x: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+          clearProps: 'all'
+        }
+      );
+    });
+  }, { scope: container, dependencies: [posts] });
+
   return (
-    <div className="py-12 max-w-4xl mx-auto">
+    <div ref={container} className="py-12 max-w-4xl mx-auto">
       <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tighter mb-4 border-b-4 border-light-border dark:border-dark-border pb-4 inline-block">
         The <span className="text-light-accent dark:text-dark-accent">Log</span>
       </h1>
@@ -30,7 +61,7 @@ const Blog = () => {
           <Link
             key={post.id}
             to={`/blog/${post.id}`}
-            className="group py-8 border-b-2 border-light-border dark:border-dark-border flex flex-col md:flex-row md:items-baseline gap-4 hover:bg-light-surface dark:hover:bg-dark-surface transition-colors px-4 -mx-4"
+            className="blog-card group py-8 border-b-2 border-light-border dark:border-dark-border flex flex-col md:flex-row md:items-baseline gap-4 hover:bg-light-surface dark:hover:bg-dark-surface transition-colors px-4 -mx-4"
           >
             <div className="w-full md:w-32 flex-shrink-0 text-sm font-bold tracking-widest text-gray-500 dark:text-gray-400 uppercase">
               {post.date || 'Recent'}

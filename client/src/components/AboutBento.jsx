@@ -20,6 +20,9 @@ const AboutBento = () => {
   ];
 
   useGSAP(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     // Animate timeline items
     const items = gsap.utils.toArray('.timeline-item');
 
@@ -36,6 +39,46 @@ const AboutBento = () => {
         ease: 'power2.out'
       });
     });
+
+    // Animate Bento Cards
+    const bentoCards = gsap.utils.toArray('.bento-reveal');
+    bentoCards.forEach((card) => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 30 },
+        {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 90%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+          clearProps: 'all'
+        }
+      );
+    });
+
+    // Animate Skill Badges
+    const skills = gsap.utils.toArray('.skill-badge');
+    gsap.fromTo(skills,
+      { opacity: 0, scale: 0.8 },
+      {
+        scrollTrigger: {
+          trigger: '.skills-container',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        opacity: 1,
+        scale: 1,
+        duration: 0.4,
+        stagger: 0.05,
+        ease: 'back.out(1.7)',
+        clearProps: 'all'
+      }
+    );
+
   }, { scope: container });
 
   return (
@@ -45,7 +88,7 @@ const AboutBento = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:auto-rows-[minmax(180px,auto)]">
 
         {/* Card A: Who I Am (Spans 2 columns) */}
-        <div className="neo-card p-8 md:col-span-2 row-span-2 flex flex-col justify-center">
+        <div className="bento-reveal neo-card p-8 md:col-span-2 row-span-2 flex flex-col justify-center">
           <h3 className="text-2xl font-bold mb-4 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">The Editorial Intro</h3>
           <p className="text-lg leading-relaxed mb-4">
             I am a passionate Computer Science student dedicated to crafting elegant solutions to complex problems. My journey spans from low-level systems programming to designing highly interactive, modern web applications.
@@ -56,7 +99,7 @@ const AboutBento = () => {
         </div>
 
         {/* Card D: Status Badge */}
-        <div className="neo-card p-6 flex flex-col items-center justify-center text-center bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface">
+        <div className="bento-reveal neo-card p-6 flex flex-col items-center justify-center text-center bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface">
           <div className="flex items-center space-x-2 font-bold uppercase tracking-widest text-sm mb-2">
              <div className="w-3 h-3 rounded-full bg-light-surface dark:bg-dark-surface animate-pulse"></div>
              <span>Availability</span>
@@ -65,13 +108,13 @@ const AboutBento = () => {
         </div>
 
         {/* Card C: Dynamic Local Time */}
-        <div className="neo-card p-6 flex flex-col items-center justify-center text-center">
+        <div className="bento-reveal neo-card p-6 flex flex-col items-center justify-center text-center">
             <p className="font-bold uppercase tracking-widest text-sm mb-2 text-gray-500 dark:text-gray-400">Local Time</p>
             <DynamicTime />
         </div>
 
         {/* Card B: Interactive Timeline (Spans full width on mobile, 3 cols on md) */}
-        <div className="neo-card p-8 md:col-span-3">
+        <div className="bento-reveal neo-card p-8 md:col-span-3">
             <h3 className="text-2xl font-bold mb-8 uppercase">My Journey</h3>
 
             <div className="relative border-l-4 border-light-accent dark:border-dark-accent ml-4 space-y-8">
@@ -86,11 +129,11 @@ const AboutBento = () => {
         </div>
 
         {/* Skills Section */}
-        <div className="neo-card p-8 md:col-span-3">
+        <div className="bento-reveal neo-card p-8 md:col-span-3 skills-container">
             <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Top Skills</h3>
             <div className="flex flex-wrap gap-3">
                 {skillsData.map((skill) => (
-                    <div key={skill.id} className="border-2 border-light-border dark:border-dark-border px-4 py-2 bg-light-bg dark:bg-dark-bg font-bold uppercase text-sm flex items-center gap-2">
+                    <div key={skill.id} className="skill-badge border-2 border-light-border dark:border-dark-border px-4 py-2 bg-light-bg dark:bg-dark-bg font-bold uppercase text-sm flex items-center gap-2">
                         <span>{skill.name}</span>
                         <span className="text-light-accent dark:text-dark-accent">{skill.level}%</span>
                     </div>
@@ -99,7 +142,7 @@ const AboutBento = () => {
         </div>
 
         {/* Certificates Section */}
-        <div className="neo-card p-8 md:col-span-3">
+        <div className="bento-reveal neo-card p-8 md:col-span-3">
             <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Certifications</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {certificatesData.map((cert) => (

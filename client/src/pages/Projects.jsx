@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import projectsData from '../../content/projects.json';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Projects = () => {
+  const container = useRef(null);
   const [projects] = useState(projectsData);
   const [filter, setFilter] = useState('All');
 
@@ -12,8 +18,35 @@ const Projects = () => {
     ? projects
     : projects.filter(p => p.category === filter || p.technologies.includes(filter));
 
+  useGSAP(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const cards = gsap.utils.toArray('.project-card');
+
+    // We recreate ScrollTriggers whenever the filter changes
+    cards.forEach((card) => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 50 },
+        {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 90%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power2.out',
+          clearProps: 'all' // prevents sticking inline styles that break hover state
+        }
+      );
+    });
+
+  }, { scope: container, dependencies: [filteredProjects] });
+
   return (
-    <div className="py-12">
+    <div ref={container} className="py-12">
       <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tighter mb-8 border-b-4 border-light-border dark:border-dark-border pb-4 inline-block">
         Selected <span className="text-light-accent dark:text-dark-accent">Works</span>
       </h1>
@@ -38,7 +71,7 @@ const Projects = () => {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredProjects.map((project) => (
-          <div key={project.id} className="neo-card p-6 flex flex-col">
+          <div key={project.id} className="project-card neo-card p-6 flex flex-col">
             <div className="mb-4">
               <span className="text-xs font-bold uppercase tracking-widest text-light-accent dark:text-dark-accent mb-2 block">
                 {project.category}

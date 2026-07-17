@@ -1,0 +1,71 @@
+import React, { useState, useEffect } from 'react';
+import { Moon, Sun } from 'lucide-react';
+
+const Layout = ({ children }) => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Check initial preference from localStorage or OS
+    const storedPreference = localStorage.getItem('theme');
+    if (storedPreference === 'dark' || (!storedPreference && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setIsDark(true);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    if (!isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col font-sans">
+      {/* Sticky Glassmorphism Navbar */}
+      <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-light-bg/80 dark:bg-dark-bg/80 border-b-2 border-light-border dark:border-dark-border transition-colors duration-300">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="font-bold text-xl tracking-tighter uppercase">
+            <span className="text-light-accent dark:text-dark-accent">Agncy</span> Portfolio
+          </div>
+
+          <nav className="hidden md:flex space-x-8 font-medium">
+            <a href="#" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work</a>
+            <a href="#" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">About</a>
+            <a href="#" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Contact</a>
+          </nav>
+
+          <button
+            onClick={toggleTheme}
+            className="p-2 border-2 border-light-border dark:border-dark-border bg-white dark:bg-black rounded-none neo-card-button"
+            aria-label="Toggle Theme"
+          >
+            {isDark ? (
+               <Sun className="w-5 h-5 text-dark-accent" />
+            ) : (
+               <Moon className="w-5 h-5 text-light-accent" />
+            )}
+          </button>
+        </div>
+      </header>
+
+      {/* Main Content Area */}
+      <main className="flex-grow container mx-auto px-4 py-8">
+        {children}
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t-2 border-light-border dark:border-dark-border py-8 mt-auto">
+          <div className="container mx-auto px-4 text-center font-medium">
+             © {new Date().getFullYear()} Agency. All rights reserved.
+          </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Layout;

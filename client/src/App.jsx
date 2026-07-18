@@ -6,10 +6,14 @@ import Projects from './pages/Projects'
 import ProjectDetails from './pages/ProjectDetails'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
+import CustomCursor from './components/CustomCursor'
+import CommandPalette from './components/CommandPalette'
 
 function App() {
   return (
     <Layout>
+      <CustomCursor />
+      <CommandPalette />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />

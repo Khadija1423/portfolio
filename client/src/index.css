@@ -18,11 +18,12 @@
 
   .neo-card:hover {
     @apply -translate-y-1 translate-x-1;
-    box-shadow: 8px 8px 0px 0px #3A342A;
+    transform: translate(0.25rem, -0.25rem) rotate(-1deg);
+    box-shadow: 10px 10px 0px 0px #3A342A;
   }
 
   .dark .neo-card:hover {
-    box-shadow: 8px 8px 0px 0px #463C31;
+    box-shadow: 10px 10px 0px 0px #463C31;
   }
 
   .neo-card:active {

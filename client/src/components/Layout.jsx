@@ -5,6 +5,7 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { useMagneticHover } from '../hooks/useMagneticHover';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -13,6 +14,10 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const mainRef = useRef(null);
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const magNav1 = useMagneticHover(0.2);
+  const magNav2 = useMagneticHover(0.2);
+  const magNav3 = useMagneticHover(0.2);
 
   useEffect(() => {
     // Check initial preference from localStorage or OS
@@ -24,7 +29,16 @@ const Layout = ({ children }) => {
   }, []);
 
   const toggleTheme = () => {
+    // We already have a CSS transition on the body for colors, so toggling the class
+    // naturally crossfades the background/text. We'll use GSAP here to animate the
+    // icon itself for a little extra polish.
     setIsDark(!isDark);
+
+    gsap.fromTo('.theme-icon',
+        { rotation: -180, scale: 0.5, opacity: 0 },
+        { rotation: 0, scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.5)', clearProps: 'all' }
+    );
+
     if (!isDark) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
@@ -88,9 +102,9 @@ const Layout = ({ children }) => {
           </Link>
 
           <nav className="hidden md:flex space-x-8 font-medium">
-            <Link to="/projects" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Work</Link>
-            <Link to="/blog" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Blog</Link>
-            <a href="#contact" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors">Contact</a>
+            <Link ref={magNav1} to="/projects" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Work</Link>
+            <Link ref={magNav2} to="/blog" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Blog</Link>
+            <a ref={magNav3} href="#contact" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Contact</a>
           </nav>
 
           <button
@@ -99,9 +113,9 @@ const Layout = ({ children }) => {
             aria-label="Toggle Theme"
           >
             {isDark ? (
-               <Sun className="w-5 h-5 text-dark-accent" />
+               <Sun className="theme-icon w-5 h-5 text-dark-accent" />
             ) : (
-               <Moon className="w-5 h-5 text-light-accent" />
+               <Moon className="theme-icon w-5 h-5 text-light-accent" />
             )}
           </button>
         </div>

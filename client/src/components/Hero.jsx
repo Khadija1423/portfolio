@@ -1,10 +1,13 @@
 import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { useMagneticHover } from '../hooks/useMagneticHover';
 
 const Hero = () => {
   const container = useRef(null);
   const textRef = useRef(null);
+  const magBtn1 = useMagneticHover(0.2);
+  const magBtn2 = useMagneticHover(0.2);
 
   const statements = [
     'I build modern web applications.',
@@ -58,12 +61,14 @@ const Hero = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 mt-auto md:mt-12">
           <button
-            className="neo-card px-8 py-4 font-bold uppercase tracking-widest text-sm bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface neo-card-button"
+            ref={magBtn1}
+            className="neo-card px-8 py-4 font-bold uppercase tracking-widest text-sm bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface neo-card-button block"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
             [Hire Me]
           </button>
           <a
+            ref={magBtn2}
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"

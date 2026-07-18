@@ -62,22 +62,22 @@ const AboutBento = () => {
 
     // Animate Skill Badges
     const skills = gsap.utils.toArray('.skill-badge');
-    gsap.fromTo(skills,
-      { opacity: 0, scale: 0.8 },
-      {
-        scrollTrigger: {
-          trigger: '.skills-container',
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 1,
-        scale: 1,
-        duration: 0.4,
-        stagger: 0.05,
-        ease: 'back.out(1.7)',
-        clearProps: 'all'
-      }
-    );
+    skills.forEach((skill) => {
+        const targetLevel = skill.getAttribute('data-level');
+        gsap.fromTo(skill,
+        { width: "0%" },
+        {
+            scrollTrigger: {
+            trigger: '.skills-container',
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+            },
+            width: `${targetLevel}%`,
+            duration: 1.2,
+            ease: 'power3.out',
+        }
+        );
+    });
 
   }, { scope: container });
 
@@ -131,11 +131,19 @@ const AboutBento = () => {
         {/* Skills Section */}
         <div className="bento-reveal neo-card p-8 md:col-span-3 skills-container">
             <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Top Skills</h3>
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                 {skillsData.map((skill) => (
-                    <div key={skill.id} className="skill-badge border-2 border-light-border dark:border-dark-border px-4 py-2 bg-light-bg dark:bg-dark-bg font-bold uppercase text-sm flex items-center gap-2">
-                        <span>{skill.name}</span>
-                        <span className="text-light-accent dark:text-dark-accent">{skill.level}%</span>
+                    <div key={skill.id} className="flex flex-col gap-2">
+                        <div className="flex justify-between font-bold uppercase text-sm">
+                            <span>{skill.name}</span>
+                            <span className="text-light-accent dark:text-dark-accent">{skill.level}%</span>
+                        </div>
+                        <div className="h-4 w-full bg-light-bg dark:bg-dark-bg border-2 border-light-border dark:border-dark-border relative overflow-hidden">
+                            <div
+                                className="skill-badge absolute top-0 left-0 h-full bg-light-accent dark:bg-dark-accent"
+                                data-level={skill.level}
+                            />
+                        </div>
                     </div>
                 ))}
             </div>

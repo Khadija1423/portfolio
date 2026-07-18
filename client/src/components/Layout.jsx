@@ -19,6 +19,7 @@ const Layout = ({ children }) => {
   const magNav1 = useMagneticHover(0.2);
   const magNav2 = useMagneticHover(0.2);
   const magNav3 = useMagneticHover(0.2);
+  const magNav4 = useMagneticHover(0.2);
 
   const handleNavClick = (e, id) => {
     e.preventDefault();
@@ -124,13 +125,6 @@ const Layout = ({ children }) => {
 
           <nav className="hidden md:flex space-x-8 font-medium">
             <button
-              ref={magNav1}
-              onClick={(e) => handleNavClick(e, 'projects')}
-              className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block uppercase font-bold"
-            >
-              Work
-            </button>
-            <button
               ref={magNav2}
               onClick={(e) => handleNavClick(e, 'about')}
               className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block uppercase font-bold"
@@ -139,6 +133,20 @@ const Layout = ({ children }) => {
             </button>
             <button
               ref={magNav3}
+              onClick={(e) => handleNavClick(e, 'skills')}
+              className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block uppercase font-bold"
+            >
+              Skills
+            </button>
+            <button
+              ref={magNav1}
+              onClick={(e) => handleNavClick(e, 'projects')}
+              className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block uppercase font-bold"
+            >
+              Work
+            </button>
+            <button
+              ref={magNav4}
               onClick={(e) => handleNavClick(e, 'contact')}
               className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block uppercase font-bold"
             >

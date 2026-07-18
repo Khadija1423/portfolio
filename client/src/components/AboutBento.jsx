@@ -129,7 +129,7 @@ const AboutBento = () => {
         </div>
 
         {/* Skills Section */}
-        <div className="bento-reveal neo-card p-8 md:col-span-3 skills-container">
+        <div id="skills" className="bento-reveal neo-card p-8 md:col-span-3 skills-container">
             <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Top Skills</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                 {skillsData.map((skill) => (

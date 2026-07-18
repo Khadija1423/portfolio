@@ -102,9 +102,9 @@ const Layout = ({ children }) => {
           </Link>
 
           <nav className="hidden md:flex space-x-8 font-medium">
-            <Link ref={magNav1} to="/projects" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Work</Link>
-            <Link ref={magNav2} to="/blog" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Blog</Link>
-            <a ref={magNav3} href="#contact" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Contact</a>
+            <a ref={magNav1} href="/#projects" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Work</a>
+            <a ref={magNav2} href="/#about" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">About</a>
+            <a ref={magNav3} href="/#contact" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Contact</a>
           </nav>
 
           <button

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
+import projectsData from '../../content/projects.json';
 
 const CommandPalette = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,12 +10,19 @@ const CommandPalette = () => {
   const containerRef = useRef(null);
   const navigate = useNavigate();
 
-  const commands = [
+  const baseCommands = [
     { name: 'Home', path: '/' },
-    { name: 'Projects', path: '/projects' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Contact', action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) },
+    { name: 'About & Skills', path: '/#about' },
+    { name: 'Projects', path: '/#projects' },
+    { name: 'Contact', path: '/#contact' },
   ];
+
+  const projectCommands = projectsData.map(p => ({
+      name: `Project: ${p.title}`,
+      path: `/projects/${p.id}`
+  }));
+
+  const commands = [...baseCommands, ...projectCommands];
 
   const filteredCommands = commands.filter(cmd =>
     cmd.name.toLowerCase().includes(search.toLowerCase())
@@ -48,7 +56,17 @@ const CommandPalette = () => {
             const selected = filteredCommands[selectedIndex];
             if (selected) {
                 if (selected.path) {
-                    navigate(selected.path);
+                    if (selected.path.includes('#')) {
+                        // Handle internal anchor links
+                        const id = selected.path.split('#')[1];
+                        if (window.location.pathname !== '/') {
+                             navigate(selected.path); // Navigate home first if we're on a details page
+                        } else {
+                             document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    } else {
+                        navigate(selected.path);
+                    }
                 } else if (selected.action) {
                     selected.action();
                 }
@@ -108,7 +126,18 @@ const CommandPalette = () => {
                     <div
                         key={cmd.name}
                         onClick={() => {
-                            if (cmd.path) navigate(cmd.path);
+                            if (cmd.path) {
+                                if (cmd.path.includes('#')) {
+                                    const id = cmd.path.split('#')[1];
+                                    if (window.location.pathname !== '/') {
+                                         navigate(cmd.path);
+                                    } else {
+                                         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                } else {
+                                    navigate(cmd.path);
+                                }
+                            }
                             if (cmd.action) cmd.action();
                             setIsOpen(false);
                         }}

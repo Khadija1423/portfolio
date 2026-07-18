@@ -46,10 +46,10 @@ const Projects = () => {
   }, { scope: container, dependencies: [filteredProjects] });
 
   return (
-    <div ref={container} className="py-12">
-      <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tighter mb-8 border-b-4 border-light-border dark:border-dark-border pb-4 inline-block">
+    <section ref={container} className="py-24 mb-16 border-t-2 border-light-border dark:border-dark-border">
+      <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-8 border-b-4 border-light-border dark:border-dark-border pb-4 inline-block">
         Selected <span className="text-light-accent dark:text-dark-accent">Works</span>
-      </h1>
+      </h2>
 
       {/* Filter Pills */}
       <div className="flex flex-wrap gap-4 mb-12">
@@ -105,7 +105,7 @@ const Projects = () => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
@@ -12,12 +12,23 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const Layout = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const mainRef = useRef(null);
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const magNav1 = useMagneticHover(0.2);
   const magNav2 = useMagneticHover(0.2);
   const magNav3 = useMagneticHover(0.2);
+
+  const handleNavClick = (e, id) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+        navigate(`/#${id}`);
+    } else {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        window.history.pushState(null, '', `/#${id}`);
+    }
+  };
 
   useEffect(() => {
     // Check initial preference from localStorage or OS
@@ -27,6 +38,16 @@ const Layout = ({ children }) => {
       document.documentElement.classList.add('dark');
     }
   }, []);
+
+  useEffect(() => {
+    // Handle hash routing cross-page and initial loads
+    if (location.hash) {
+      const id = location.hash.substring(1); // remove the '#'
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, [location.hash, location.pathname]);
 
   const toggleTheme = () => {
     // We already have a CSS transition on the body for colors, so toggling the class
@@ -102,9 +123,27 @@ const Layout = ({ children }) => {
           </Link>
 
           <nav className="hidden md:flex space-x-8 font-medium">
-            <a ref={magNav1} href="/#projects" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Work</a>
-            <a ref={magNav2} href="/#about" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">About</a>
-            <a ref={magNav3} href="/#contact" className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block">Contact</a>
+            <button
+              ref={magNav1}
+              onClick={(e) => handleNavClick(e, 'projects')}
+              className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block uppercase font-bold"
+            >
+              Work
+            </button>
+            <button
+              ref={magNav2}
+              onClick={(e) => handleNavClick(e, 'about')}
+              className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block uppercase font-bold"
+            >
+              About
+            </button>
+            <button
+              ref={magNav3}
+              onClick={(e) => handleNavClick(e, 'contact')}
+              className="hover:text-light-accent dark:hover:text-dark-accent transition-colors inline-block uppercase font-bold"
+            >
+              Contact
+            </button>
           </nav>
 
           <button

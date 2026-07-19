@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import projectsData from '../../content/projects.json';
+import ImageWithFallback from '../components/ImageWithFallback';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,8 +71,27 @@ const Projects = () => {
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredProjects.map((project) => (
-          <div key={project.id} className="project-card neo-card p-6 flex flex-col">
+        {filteredProjects.length === 0 ? (
+          <div className="col-span-full py-12 text-center border-4 border-dashed border-light-border/30 dark:border-dark-border/30">
+            <p className="text-xl font-bold mb-2">No projects found for this category.</p>
+            <button onClick={() => setFilter('All')} className="text-light-accent dark:text-dark-accent underline font-bold uppercase text-sm">
+              View All Projects
+            </button>
+          </div>
+        ) : (
+        filteredProjects.map((project) => (
+          <div key={project.id} className="project-card neo-card flex flex-col group overflow-hidden">
+            {project.image && (
+              <div className="w-full aspect-video border-b-2 border-light-border dark:border-dark-border relative overflow-hidden group/image">
+                <ImageWithFallback
+                  src={project.image}
+                  alt={project.title}
+                  className="group-hover/image:scale-105"
+                  containerClassName="w-full h-full border-none"
+                />
+              </div>
+            )}
+            <div className="p-6 flex-1 flex flex-col">
             <div className="mb-4">
               <span className="text-xs font-bold uppercase tracking-widest text-light-accent dark:text-dark-accent mb-2 block">
                 {project.category}
@@ -102,8 +122,10 @@ const Projects = () => {
                 Live Demo
               </button>
             </div>
+            </div>
           </div>
-        ))}
+        ))
+        )}
       </div>
     </section>
   );

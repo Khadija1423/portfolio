@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://agency-portfolio.com/</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://yourdomain.com/</loc>
+    <lastmod>2024-01-01</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://agency-portfolio.com/projects/1</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://yourdomain.com/projects/1</loc>
+    <lastmod>2024-01-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://agency-portfolio.com/projects/2</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://yourdomain.com/projects/2</loc>
+    <lastmod>2024-01-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://agency-portfolio.com/projects/3</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://yourdomain.com/projects/3</loc>
+    <lastmod>2024-01-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/projects/4</loc>
+    <lastmod>2024-01-01</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>

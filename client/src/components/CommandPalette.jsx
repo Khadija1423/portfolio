@@ -120,7 +120,11 @@ const CommandPalette = () => {
 
         <div className="p-2 max-h-[40vh] overflow-y-auto">
             {filteredCommands.length === 0 ? (
-                <div className="p-4 text-center font-medium text-gray-500">No results found.</div>
+                <div className="p-12 flex flex-col items-center justify-center text-center">
+                    <span className="text-4xl mb-4 block">🤔</span>
+                    <span className="text-lg font-bold uppercase tracking-wider">No matches found for "{search}"</span>
+                    <span className="text-sm opacity-60 mt-2 block font-medium">Try searching for "Projects" or "Contact"</span>
+                </div>
             ) : (
                 filteredCommands.map((cmd, index) => (
                     <div

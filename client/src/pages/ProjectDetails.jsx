@@ -1,21 +1,71 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Clock } from 'lucide-react';
 import projectsData from '../../content/projects.json';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import SEO from '../components/SEO';
 
 const ProjectDetails = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
+  const [readingTime, setReadingTime] = useState(0);
+  const readingProgressRef = useRef(null);
+  const contentRef = useRef(null);
 
   useEffect(() => {
     const foundProject = projectsData.find(p => p.id === id);
     setProject(foundProject);
+
+    if (foundProject) {
+      // Calculate estimated reading time based on total text length
+      const textContent = [
+        foundProject.description,
+        foundProject.features,
+        foundProject.architecture,
+        foundProject.challenges,
+        foundProject.lessonsLearned
+      ].filter(Boolean).join(' ');
+
+      const words = textContent.trim().split(/\s+/).length;
+      const timeToRead = Math.ceil(words / 200); // 200 words per minute
+      setReadingTime(timeToRead);
+    }
   }, [id]);
+
+  useGSAP(() => {
+    if (!contentRef.current || !readingProgressRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    gsap.to(readingProgressRef.current, {
+      scaleX: 1,
+      transformOrigin: 'left center',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: contentRef.current,
+        start: 'top 80%',
+        end: 'bottom 80%',
+        scrub: 0.1,
+      }
+    });
+  }, [project]);
 
   if (!project) return <div className="py-20 text-center font-bold text-xl">Loading...</div>;
 
   return (
+    <>
+      <SEO
+        title={project.title}
+        description={project.description?.substring(0, 160)}
+        type="article"
+      />
+      <div
+        ref={readingProgressRef}
+        className="fixed top-1 left-0 h-1.5 w-full bg-light-secondary dark:bg-dark-secondary z-[9998] origin-left scale-x-0"
+      />
     <div className="py-12 max-w-4xl mx-auto">
       <Link to="/projects" className="inline-flex items-center space-x-2 font-bold hover:text-light-accent dark:hover:text-dark-accent mb-8 transition-colors">
         <ArrowLeft className="w-5 h-5" />
@@ -26,9 +76,17 @@ const ProjectDetails = () => {
 
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
             <div>
-                <span className="text-sm font-bold uppercase tracking-widest text-light-accent dark:text-dark-accent block mb-2">
-                {project.category}
-                </span>
+                <div className="flex items-center gap-4 mb-2">
+                  <span className="text-sm font-bold uppercase tracking-widest text-light-accent dark:text-dark-accent">
+                    {project.category}
+                  </span>
+                  {readingTime > 0 && (
+                    <span className="flex items-center gap-1 text-sm font-bold opacity-70">
+                      <Clock className="w-4 h-4" />
+                      {readingTime} MIN READ
+                    </span>
+                  )}
+                </div>
                 <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-tight">
                 {project.title}
                 </h1>
@@ -52,7 +110,7 @@ const ProjectDetails = () => {
             ))}
         </div>
 
-        <div className="prose dark:prose-invert prose-lg max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight prose-a:text-light-accent dark:prose-a:text-dark-accent">
+        <div ref={contentRef} className="prose dark:prose-invert prose-lg max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight prose-a:text-light-accent dark:prose-a:text-dark-accent">
 
             {project.description && (
                 <div className="mb-12">
@@ -92,6 +150,7 @@ const ProjectDetails = () => {
 
       </div>
     </div>
+    </>
   );
 };
 

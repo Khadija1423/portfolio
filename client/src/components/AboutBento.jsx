@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react';
 import DynamicTime from './DynamicTime';
 import skillsData from '../../content/skills.json';
 import certificatesData from '../../content/certificates.json';
+import siteConfig from '../../content/config.json';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -101,10 +102,10 @@ const AboutBento = () => {
         {/* Card D: Status Badge */}
         <div className="bento-reveal neo-card p-6 flex flex-col items-center justify-center text-center bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface">
           <div className="flex items-center space-x-2 font-bold uppercase tracking-widest text-sm mb-2">
-             <div className="w-3 h-3 rounded-full bg-light-surface dark:bg-dark-surface animate-pulse"></div>
+             <div className={`w-3 h-3 rounded-full animate-pulse ${siteConfig.availability.color === 'green' ? 'bg-[#39FF14]' : 'bg-light-surface dark:bg-dark-surface'}`}></div>
              <span>Availability</span>
           </div>
-          <p className="text-xl font-black">Open for Opportunities</p>
+          <p className="text-xl font-black">{siteConfig.availability.text}</p>
         </div>
 
         {/* Card C: Dynamic Local Time */}

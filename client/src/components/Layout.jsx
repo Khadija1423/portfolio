@@ -120,7 +120,7 @@ const Layout = ({ children }) => {
       <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-light-bg/80 dark:bg-dark-bg/80 border-b-2 border-light-border dark:border-dark-border transition-colors duration-300">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link to="/" className="font-bold text-xl tracking-tighter uppercase block">
-            <span className="text-light-accent dark:text-dark-accent">Agncy</span> Portfolio
+            Khadija Rehman
           </Link>
 
           <nav className="hidden md:flex space-x-8 font-medium">
@@ -176,7 +176,7 @@ const Layout = ({ children }) => {
       {/* Footer */}
       <footer className="border-t-2 border-light-border dark:border-dark-border py-8 mt-auto">
           <div className="container mx-auto px-4 text-center font-medium">
-             © {new Date().getFullYear()} Agency. All rights reserved.
+             © {new Date().getFullYear()} Khadija Rehman. All rights reserved.
           </div>
       </footer>
     </div>

@@ -76,7 +76,7 @@ const Hero = () => {
             rel="noopener noreferrer"
             className="neo-card px-8 py-4 font-bold uppercase tracking-widest text-sm text-center inline-block text-light-text dark:text-dark-text"
           >
-            [Download CV]
+            [View Résumé]
           </a>
         </div>
 

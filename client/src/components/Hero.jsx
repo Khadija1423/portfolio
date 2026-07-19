@@ -51,7 +51,7 @@ const Hero = () => {
   }, { scope: container });
 
   return (
-    <section ref={container} className="min-h-[80vh] flex flex-col md:flex-row border-b-2 border-light-border dark:border-dark-border mb-16">
+    <section ref={container} className="min-h-[80vh] flex flex-col md:flex-row border-b-2 border-light-border dark:border-dark-border">
       {/* Left Side: Static Panel */}
       <div className="w-full md:w-1/2 flex flex-col justify-center p-8 md:p-16 border-b-2 md:border-b-0 md:border-r-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface transition-colors">
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-4">

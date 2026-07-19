@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { Mail } from 'lucide-react';
+import { Mail, CheckCircle2, AlertCircle } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import socialData from '../../content/social.json';
 
@@ -65,7 +65,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-24 mb-16">
+    <section className="py-24 border-t-2 border-light-border dark:border-dark-border">
       <div className="contact-reveal">
         <h2 className="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tighter">Get In <span className="text-light-accent dark:text-dark-accent">Touch</span></h2>
         <p className="text-lg mb-8 max-w-2xl font-medium text-light-text/80 dark:text-dark-text/80">
@@ -75,8 +75,16 @@ const Contact = () => {
 
       <div className="contact-reveal neo-card p-8 md:p-12 max-w-3xl">
         {status.success ? (
-          <div className="bg-light-secondary dark:bg-dark-secondary text-white dark:text-black p-6 font-bold text-lg text-center uppercase tracking-widest border-4 border-light-border dark:border-dark-border">
-            Message Sent Successfully!
+          <div className="flex flex-col items-center justify-center p-12 text-center border-4 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface min-h-[300px]">
+            <CheckCircle2 className="w-16 h-16 text-light-accent dark:text-dark-accent mb-4" />
+            <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">Message Sent</h3>
+            <p className="font-medium text-light-text/80 dark:text-dark-text/80">I'll get back to you shortly.</p>
+            <button
+                onClick={() => setStatus({ loading: false, success: false, error: '' })}
+                className="mt-8 text-sm font-bold uppercase tracking-widest border-b-2 border-light-accent dark:border-dark-accent text-light-accent dark:text-dark-accent hover:opacity-70 transition-opacity"
+            >
+                Send Another
+            </button>
           </div>
         ) : (
           <div className="flex flex-col lg:flex-row gap-12">
@@ -138,17 +146,21 @@ const Contact = () => {
             </div>
 
             {status.error && (
-                <div className="text-red-500 font-bold border-l-4 border-red-500 pl-4 py-2 bg-red-500/10">
-                    {status.error}
+                <div className="flex items-center gap-3 text-red-600 dark:text-red-400 font-bold border-2 border-red-600 dark:border-red-400 p-4 bg-red-50 dark:bg-red-950/20">
+                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                    <span>{status.error}</span>
                 </div>
             )}
 
               <button
                 type="submit"
                 disabled={status.loading}
-                className="mt-4 neo-card bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface p-4 font-bold uppercase tracking-widest text-lg disabled:opacity-50 hover:opacity-90 transition-opacity"
+                className="mt-4 neo-card bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface p-4 font-bold uppercase tracking-widest text-lg disabled:opacity-50 hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
               >
-                {status.loading ? 'Sending...' : 'Send Message'}
+                {status.loading && (
+                    <div className="w-5 h-5 border-4 border-light-surface dark:border-dark-surface border-t-transparent dark:border-t-transparent rounded-full animate-spin"></div>
+                )}
+                {status.loading ? 'Sending...' : 'Send it over'}
               </button>
             </form>
             </div>

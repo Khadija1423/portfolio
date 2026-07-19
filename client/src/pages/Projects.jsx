@@ -47,7 +47,7 @@ const Projects = () => {
   }, { scope: container, dependencies: [filteredProjects] });
 
   return (
-    <section ref={container} className="py-24 mb-16 border-t-2 border-light-border dark:border-dark-border">
+    <section ref={container} className="py-24 border-t-2 border-light-border dark:border-dark-border">
       <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-8 border-b-4 border-light-border dark:border-dark-border pb-4 inline-block">
         Selected <span className="text-light-accent dark:text-dark-accent">Works</span>
       </h2>
@@ -113,13 +113,13 @@ const Projects = () => {
                 to={`/projects/${project.id}`}
                 className="col-span-3 text-center border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-sm hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors"
               >
-                Details
+                Read the case study
               </Link>
               <button className="col-span-1 border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-xs bg-light-text text-light-surface dark:bg-dark-text dark:text-dark-surface hover:opacity-80 transition-opacity">
-                Code
+                View source
               </button>
               <button className="col-span-2 border-2 border-light-border dark:border-dark-border py-2 font-bold uppercase text-xs bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface hover:opacity-80 transition-opacity">
-                Live Demo
+                See it live
               </button>
             </div>
             </div>

@@ -61,6 +61,26 @@ const AboutBento = () => {
       );
     });
 
+    // Animate Stat Numbers
+    const stats = gsap.utils.toArray('.stat-number');
+    stats.forEach((stat) => {
+      const target = parseInt(stat.getAttribute('data-target'), 10);
+      gsap.to(stat, {
+        scrollTrigger: {
+          trigger: stat,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        innerHTML: target,
+        duration: 2,
+        ease: 'power3.out',
+        snap: { innerHTML: 1 },
+        onUpdate: function() {
+          stat.innerHTML = Math.ceil(this.targets()[0].innerHTML);
+        }
+      });
+    });
+
     // Animate Skill Badges
     const skills = gsap.utils.toArray('.skill-badge');
     skills.forEach((skill) => {
@@ -83,7 +103,7 @@ const AboutBento = () => {
   }, { scope: container });
 
   return (
-    <section ref={container} className="mb-24">
+    <section ref={container} className="py-24 border-t-2 border-light-border dark:border-dark-border">
       <h2 className="text-4xl md:text-5xl font-black mb-8 uppercase tracking-tighter">About <span className="text-light-accent dark:text-dark-accent">Me</span></h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:auto-rows-[minmax(180px,auto)]">
@@ -108,10 +128,15 @@ const AboutBento = () => {
           <p className="text-xl font-black">{siteConfig.availability.text}</p>
         </div>
 
-        {/* Card C: Dynamic Local Time */}
+        {/* Card C: Dynamic Local Time & Projects Stat */}
         <div className="bento-reveal neo-card p-6 flex flex-col items-center justify-center text-center">
-            <p className="font-bold uppercase tracking-widest text-sm mb-2 text-gray-500 dark:text-gray-400">Local Time</p>
+            <p className="font-bold uppercase tracking-widest text-sm mb-2 text-light-text/60 dark:text-dark-text/60">Local Time</p>
             <DynamicTime />
+
+            <div className="w-full border-t-2 border-light-border dark:border-dark-border my-4"></div>
+
+            <p className="font-bold uppercase tracking-widest text-sm mb-1 text-light-text/60 dark:text-dark-text/60">Projects Built</p>
+            <div className="text-4xl font-black text-light-accent dark:text-dark-accent stat-number" data-target="24">0</div>
         </div>
 
         {/* Card B: Interactive Timeline (Spans full width on mobile, 3 cols on md) */}

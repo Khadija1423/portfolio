@@ -157,7 +157,7 @@ const CommandPalette = () => {
                 ))
             )}
         </div>
-        <div className="p-2 border-t-2 border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg text-xs font-bold uppercase tracking-widest text-center text-gray-500">
+        <div className="p-2 border-t-2 border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg text-xs font-bold uppercase tracking-widest text-center text-light-text/60 dark:text-dark-text/60">
             Use arrows to navigate, Esc to close
         </div>
       </div>

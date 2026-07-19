@@ -67,9 +67,9 @@ const ProjectDetails = () => {
         className="fixed top-1 left-0 h-1.5 w-full bg-light-secondary dark:bg-dark-secondary z-[9998] origin-left scale-x-0"
       />
     <div className="py-12 max-w-4xl mx-auto">
-      <Link to="/projects" className="inline-flex items-center space-x-2 font-bold hover:text-light-accent dark:hover:text-dark-accent mb-8 transition-colors">
+      <Link to="/#projects" className="inline-flex items-center space-x-2 font-bold hover:text-light-accent dark:hover:text-dark-accent mb-8 transition-colors">
         <ArrowLeft className="w-5 h-5" />
-        <span>BACK TO PROJECTS</span>
+        <span>BACK TO ALL WORK</span>
       </Link>
 
       <div className="border-4 border-light-border dark:border-dark-border p-8 md:p-12 bg-light-surface dark:bg-dark-surface mb-12 relative shadow-[8px_8px_0px_0px_#3A342A] dark:shadow-[8px_8px_0px_0px_#463C31]">
@@ -94,10 +94,10 @@ const ProjectDetails = () => {
 
             <div className="flex flex-col gap-3 min-w-[140px]">
                 <a href={project.liveUrl} className="border-2 border-light-border dark:border-dark-border py-3 px-6 text-center font-bold uppercase text-sm bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface hover:opacity-80 transition-opacity">
-                    Live Demo
+                    Launch project
                 </a>
                 <a href={project.githubUrl} className="border-2 border-light-border dark:border-dark-border py-3 px-6 text-center font-bold uppercase text-sm bg-light-text text-light-surface dark:bg-dark-text dark:text-dark-surface hover:opacity-80 transition-opacity">
-                    View Code
+                    Explore the repo
                 </a>
             </div>
         </div>

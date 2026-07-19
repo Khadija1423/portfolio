@@ -41,7 +41,47 @@ h1, h2, h3, h4, h5, h6 {
   @apply font-serif;
 }
 
+/* Custom Text Selection */
+::selection {
+  @apply bg-light-accent text-light-bg;
+}
+.dark ::selection {
+  @apply bg-dark-accent text-dark-bg;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-light-surface dark:bg-dark-surface border-l-2 border-light-border dark:border-dark-border;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-light-accent dark:bg-dark-accent border-l-2 border-light-border dark:border-dark-border;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply opacity-80;
+}
+
+/* Focus States (Terracotta Outline) */
+*:focus-visible {
+  @apply outline-none ring-4 ring-light-accent/50 dark:ring-dark-accent/50 ring-offset-2 ring-offset-light-bg dark:ring-offset-dark-bg;
+}
+
 /* Base theme application */
 body {
-  @apply bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text font-sans transition-colors duration-300 antialiased;
+  @apply bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text font-sans transition-colors duration-300 antialiased relative;
+}
+
+/* Subtle Noise Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }

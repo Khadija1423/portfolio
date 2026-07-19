@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { Mail } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import socialData from '../../content/social.json';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -76,7 +79,11 @@ const Contact = () => {
             Message Sent Successfully!
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="flex flex-col lg:flex-row gap-12">
+
+            {/* Form Side */}
+            <div className="flex-1">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label htmlFor="name" className="font-bold uppercase text-sm tracking-wider">Name</label>
@@ -136,14 +143,48 @@ const Contact = () => {
                 </div>
             )}
 
-            <button
-              type="submit"
-              disabled={status.loading}
-              className="mt-4 neo-card bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface p-4 font-bold uppercase tracking-widest text-lg disabled:opacity-50"
-            >
-              {status.loading ? 'Sending...' : 'Send Message'}
-            </button>
-          </form>
+              <button
+                type="submit"
+                disabled={status.loading}
+                className="mt-4 neo-card bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface p-4 font-bold uppercase tracking-widest text-lg disabled:opacity-50 hover:opacity-90 transition-opacity"
+              >
+                {status.loading ? 'Sending...' : 'Send Message'}
+              </button>
+            </form>
+            </div>
+
+            {/* Social Links Side */}
+            <div className="lg:w-64 flex flex-col gap-6">
+              <div className="font-black text-2xl uppercase tracking-tighter border-b-4 border-light-border dark:border-dark-border pb-2 inline-block">
+                Or reach me <span className="text-light-accent dark:text-dark-accent">directly</span>
+              </div>
+              <div className="flex flex-col gap-4">
+                <a
+                  href={socialData.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="neo-card p-4 flex items-center gap-4 bg-light-surface dark:bg-dark-surface hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors font-bold uppercase tracking-widest text-sm group"
+                >
+                  <FaLinkedin className="w-5 h-5" /> LinkedIn
+                </a>
+                <a
+                  href={socialData.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="neo-card p-4 flex items-center gap-4 bg-light-surface dark:bg-dark-surface hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors font-bold uppercase tracking-widest text-sm group"
+                >
+                  <FaGithub className="w-5 h-5" /> GitHub
+                </a>
+                <a
+                  href={`mailto:${socialData.email}`}
+                  className="neo-card p-4 flex items-center gap-4 bg-light-surface dark:bg-dark-surface hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors font-bold uppercase tracking-widest text-sm group"
+                >
+                  <Mail className="w-5 h-5" /> Email
+                </a>
+              </div>
+            </div>
+
+          </div>
         )}
       </div>
     </section>

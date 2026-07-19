@@ -2,6 +2,9 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useMagneticHover } from '../hooks/useMagneticHover';
+import { Mail } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import socialData from '../../content/social.json';
 
 const Hero = () => {
   const container = useRef(null);
@@ -62,9 +65,9 @@ const Hero = () => {
           <button
             ref={magBtn1}
             className="neo-card px-8 py-4 font-bold uppercase tracking-widest text-sm bg-light-accent dark:bg-dark-accent text-light-surface dark:text-dark-surface neo-card-button block"
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            [Hire Me]
+            [View My Work]
           </button>
           <a
             ref={magBtn2}
@@ -75,6 +78,18 @@ const Hero = () => {
           >
             [Download CV]
           </a>
+        </div>
+
+        <div className="flex items-center gap-4 mt-8">
+            <a href={socialData.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-3 neo-card border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors group">
+              <FaGithub className="w-6 h-6" />
+            </a>
+            <a href={socialData.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-3 neo-card border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors group">
+              <FaLinkedin className="w-6 h-6" />
+            </a>
+            <a href={`mailto:${socialData.email}`} aria-label="Email" className="p-3 neo-card border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors group">
+              <Mail className="w-6 h-6" />
+            </a>
         </div>
       </div>
 

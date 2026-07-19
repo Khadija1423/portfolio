@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun, Mail } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { useMagneticHover } from '../hooks/useMagneticHover';
+import socialData from '../../content/social.json';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -154,17 +156,46 @@ const Layout = ({ children }) => {
             </button>
           </nav>
 
-          <button
-            onClick={toggleTheme}
-            className="p-2 border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface rounded-none neo-card-button transition-colors"
-            aria-label="Toggle Theme"
-          >
-            {isDark ? (
-               <Sun className="theme-icon w-5 h-5 text-dark-accent" />
-            ) : (
-               <Moon className="theme-icon w-5 h-5 text-light-accent" />
-            )}
-          </button>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-2 border-r-2 border-light-border dark:border-dark-border pr-4 mr-2">
+              <a
+                href={socialData.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:text-light-accent dark:hover:text-dark-accent transition-colors group relative"
+                aria-label="GitHub"
+              >
+                <FaGithub className="w-5 h-5" />
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-light-text dark:bg-dark-text text-light-surface dark:text-dark-surface text-xs font-bold uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  GitHub
+                </span>
+              </a>
+              <a
+                href={socialData.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 hover:text-light-accent dark:hover:text-dark-accent transition-colors group relative"
+                aria-label="LinkedIn"
+              >
+                <FaLinkedin className="w-5 h-5" />
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-light-text dark:bg-dark-text text-light-surface dark:text-dark-surface text-xs font-bold uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  LinkedIn
+                </span>
+              </a>
+            </div>
+
+            <button
+              onClick={toggleTheme}
+              className="p-2 border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface rounded-none neo-card-button transition-colors"
+              aria-label="Toggle Theme"
+            >
+              {isDark ? (
+                 <Sun className="theme-icon w-5 h-5 text-dark-accent" />
+              ) : (
+                 <Moon className="theme-icon w-5 h-5 text-light-accent" />
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -174,9 +205,22 @@ const Layout = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t-2 border-light-border dark:border-dark-border py-8 mt-auto">
-          <div className="container mx-auto px-4 text-center font-medium">
-             © {new Date().getFullYear()} Khadija Rehman. All rights reserved.
+      <footer className="border-t-2 border-light-border dark:border-dark-border py-8 mt-auto bg-light-surface dark:bg-dark-surface">
+          <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+             <div className="text-sm font-bold uppercase tracking-wider">
+                © {new Date().getFullYear()} Khadija Rehman. All rights reserved.
+             </div>
+             <div className="flex items-center gap-4">
+                <a href={socialData.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 border-2 border-light-border dark:border-dark-border hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors">
+                  <FaGithub className="w-5 h-5" />
+                </a>
+                <a href={socialData.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 border-2 border-light-border dark:border-dark-border hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors">
+                  <FaLinkedin className="w-5 h-5" />
+                </a>
+                <a href={`mailto:${socialData.email}`} aria-label="Email" className="p-2 border-2 border-light-border dark:border-dark-border hover:bg-light-accent dark:hover:bg-dark-accent hover:text-light-surface dark:hover:text-dark-surface transition-colors">
+                  <Mail className="w-5 h-5" />
+                </a>
+             </div>
           </div>
       </footer>
     </div>

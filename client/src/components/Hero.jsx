@@ -10,9 +10,8 @@ const Hero = () => {
   const magBtn2 = useMagneticHover(0.2);
 
   const statements = [
-    'I build modern web applications.',
-    'I love solving real-world problems.',
-    'Always learning.'
+    'Building modern web applications.',
+    'Creating intelligent solutions with AI.'
   ];
 
   useGSAP(() => {
@@ -56,7 +55,7 @@ const Hero = () => {
           Hi, I'm Khadija
         </h1>
         <p className="text-xl font-medium mb-8 text-light-accent dark:text-dark-accent">
-          Computer Science Student | Web Developer | AI Enthusiast
+            Web Developer | AI/ML Engineer
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-auto md:mt-12">

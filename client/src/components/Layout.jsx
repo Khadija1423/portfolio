@@ -118,14 +118,18 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
+      {/* Non-sticky Signature */}
+      <div className="container mx-auto px-4 py-8">
+        <Link to="/" className="font-serif font-bold text-4xl tracking-tighter block">
+          Khadija Rehman
+        </Link>
+      </div>
+
       {/* Sticky Glassmorphism Navbar */}
       <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-light-bg/80 dark:bg-dark-bg/80 border-b-2 border-light-border dark:border-dark-border transition-colors duration-300">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="font-bold text-xl tracking-tighter uppercase block">
-            Khadija Rehman
-          </Link>
+        <div className="container mx-auto px-4 py-4 flex items-center justify-end">
 
-          <nav className="hidden md:flex space-x-8 font-medium">
+          <nav className="hidden md:flex space-x-8 font-medium mr-auto">
             <button
               ref={magNav2}
               onClick={(e) => handleNavClick(e, 'about')}

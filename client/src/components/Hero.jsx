@@ -5,6 +5,7 @@ import { useMagneticHover } from '../hooks/useMagneticHover';
 import { Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import socialData from '../../content/social.json';
+import siteConfig from '../../content/config.json';
 
 const Hero = () => {
   const container = useRef(null);
@@ -60,6 +61,14 @@ const Hero = () => {
         <p className="text-xl font-medium mb-8 text-light-accent dark:text-dark-accent">
             Web Developer | AI/ML Engineer
         </p>
+
+        {/* Availability / Status Widget */}
+        <div className="mb-8 inline-flex items-center space-x-2 border-2 border-light-border dark:border-dark-border px-4 py-2 bg-light-bg dark:bg-dark-bg w-max">
+            <div className={`w-3 h-3 rounded-full animate-pulse ${siteConfig.availability.color === 'green' ? 'bg-[#39FF14]' : 'bg-light-accent dark:bg-dark-accent'}`}></div>
+            <span className="font-bold uppercase tracking-widest text-sm">
+                {siteConfig.availability.text}
+            </span>
+        </div>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-auto md:mt-12">
           <button

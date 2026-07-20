@@ -116,20 +116,32 @@ const Layout = ({ children }) => {
     return () => ctx.revert();
   }, [location.pathname, prefersReducedMotion]);
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col font-sans">
-      {/* Non-sticky Signature */}
-      <div className="container mx-auto px-4 py-8">
-        <Link to="/" className="font-serif font-bold text-4xl tracking-tighter block">
-          Khadija Rehman
-        </Link>
-      </div>
-
       {/* Sticky Glassmorphism Navbar */}
       <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-light-bg/80 dark:bg-dark-bg/80 border-b-2 border-light-border dark:border-dark-border transition-colors duration-300">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-end">
+        <div className="container mx-auto px-4 py-4 grid grid-cols-[1fr_auto_1fr] items-center">
 
-          <nav className="hidden md:flex space-x-8 font-medium mr-auto">
+          {/* Left: Signature */}
+          <div className={`transition-all duration-300 ${scrolled ? 'opacity-0 -translate-y-2 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
+            <Link to="/" className="font-serif font-bold text-2xl md:text-3xl tracking-tighter inline-block">
+              Khadija Rehman
+            </Link>
+          </div>
+
+          {/* Center: Nav Links */}
+          <nav className="hidden md:flex space-x-8 font-medium justify-center">
             <button
               ref={magNav2}
               onClick={(e) => handleNavClick(e, 'about')}
@@ -160,7 +172,8 @@ const Layout = ({ children }) => {
             </button>
           </nav>
 
-          <div className="flex items-center gap-4">
+          {/* Right: Icons & Theme Toggle */}
+          <div className={`flex items-center gap-4 justify-end transition-all duration-300 ${scrolled ? 'opacity-0 -translate-y-2 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
             <div className="hidden sm:flex items-center gap-2 border-r-2 border-light-border dark:border-dark-border pr-4 mr-2">
               <a
                 href={socialData.github}

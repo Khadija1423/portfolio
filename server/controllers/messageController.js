@@ -1,4 +1,3 @@
-const Message = require('../models/Message');
 const { sendEmailNotification } = require('../services/emailService');
 
 const createMessage = async (req, res) => {
@@ -9,19 +8,10 @@ const createMessage = async (req, res) => {
       return res.status(400).json({ success: false, message: 'All fields are required' });
     }
 
-    const newMessage = new Message({
-      name,
-      email,
-      subject,
-      message,
-    });
-
-    await newMessage.save();
-
     // Trigger email asynchronously
-    sendEmailNotification(newMessage);
+    sendEmailNotification({ name, email, subject, message });
 
-    res.status(201).json({ success: true, data: newMessage });
+    res.status(201).json({ success: true, message: 'Message sent successfully.' });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

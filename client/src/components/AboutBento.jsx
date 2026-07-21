@@ -107,15 +107,15 @@ const AboutBento = () => {
         {/* Skills Section */}
         <div id="skills" className="bento-reveal neo-card p-8 md:col-span-3 skills-container">
             <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Skills</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="flex flex-wrap gap-8">
                 {Object.entries(skillsByCategory).map(([category, skills]) => (
-                    <div key={category} className="flex flex-col gap-3">
+                    <div key={category} className="flex flex-col gap-3 min-w-[250px] flex-1">
                         <h4 className="font-bold uppercase tracking-wider text-sm text-light-accent dark:text-dark-accent mb-2">{category}</h4>
                         <div className="flex flex-wrap gap-2">
                             {skills.map((skill) => (
                                 <span
                                     key={skill.id}
-                                    className="px-3 py-1 text-sm font-medium border-2 border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg hover:-translate-y-1 transition-transform shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]"
+                                    className="px-4 py-1.5 text-sm font-medium border border-light-accent/30 dark:border-dark-accent/30 bg-light-accent/10 dark:bg-dark-accent/10 text-light-text dark:text-dark-text rounded-full hover:bg-light-accent/20 dark:hover:bg-dark-accent/20 transition-colors"
                                 >
                                     {skill.name}
                                 </span>

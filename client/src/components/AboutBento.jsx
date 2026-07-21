@@ -12,34 +12,9 @@ gsap.registerPlugin(ScrollTrigger);
 const AboutBento = () => {
   const container = useRef(null);
 
-  const timelineEvents = [
-    { year: '2020', event: 'Started CS Degree' },
-    { year: '2021', event: 'Mastered C++ & Java' },
-    { year: '2022', event: 'Discovered Web Development' },
-    { year: '2023', event: 'Deep Dive into React & Node.js' },
-    { year: '2024', event: 'Exploring AI & Machine Learning' },
-  ];
-
   useGSAP(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
-
-    // Animate timeline items
-    const items = gsap.utils.toArray('.timeline-item');
-
-    items.forEach((item) => {
-      gsap.from(item, {
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
-        y: 50,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power2.out'
-      });
-    });
 
     // Animate Bento Cards
     const bentoCards = gsap.utils.toArray('.bento-reveal');
@@ -81,26 +56,16 @@ const AboutBento = () => {
       });
     });
 
-    // Animate Skill Badges
-    const skills = gsap.utils.toArray('.skill-badge');
-    skills.forEach((skill) => {
-        const targetLevel = skill.getAttribute('data-level');
-        gsap.fromTo(skill,
-        { width: "0%" },
-        {
-            scrollTrigger: {
-            trigger: '.skills-container',
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-            },
-            width: `${targetLevel}%`,
-            duration: 1.2,
-            ease: 'power3.out',
-        }
-        );
-    });
-
   }, { scope: container });
+
+  // Group skills by category
+  const skillsByCategory = skillsData.reduce((acc, skill) => {
+    if (!acc[skill.category]) {
+      acc[skill.category] = [];
+    }
+    acc[skill.category].push(skill);
+    return acc;
+  }, {});
 
   return (
     <section ref={container} className="py-24 border-t-2 border-light-border dark:border-dark-border">
@@ -139,36 +104,22 @@ const AboutBento = () => {
             <div className="text-4xl font-black text-light-accent dark:text-dark-accent stat-number" data-target="24">0</div>
         </div>
 
-        {/* Card B: Interactive Timeline (Spans full width on mobile, 3 cols on md) */}
-        <div className="bento-reveal neo-card p-8 md:col-span-3">
-            <h3 className="text-2xl font-bold mb-8 uppercase">My Journey</h3>
-
-            <div className="relative border-l-4 border-light-accent dark:border-dark-accent ml-4 space-y-8">
-                {timelineEvents.map((item, index) => (
-                    <div key={index} className="timeline-item relative pl-8">
-                        <div className="absolute w-4 h-4 rounded-full bg-light-bg dark:bg-dark-bg border-4 border-light-accent dark:border-dark-accent -left-[10px] top-1.5"></div>
-                        <h4 className="text-xl font-black text-light-accent dark:text-dark-accent">{item.year}</h4>
-                        <p className="text-lg font-medium">{item.event}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-
         {/* Skills Section */}
         <div id="skills" className="bento-reveal neo-card p-8 md:col-span-3 skills-container">
-            <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Top Skills</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-                {skillsData.map((skill) => (
-                    <div key={skill.id} className="flex flex-col gap-2">
-                        <div className="flex justify-between font-bold uppercase text-sm">
-                            <span>{skill.name}</span>
-                            <span className="text-light-accent dark:text-dark-accent">{skill.level}%</span>
-                        </div>
-                        <div className="h-4 w-full bg-light-bg dark:bg-dark-bg border-2 border-light-border dark:border-dark-border relative overflow-hidden">
-                            <div
-                                className="skill-badge absolute top-0 left-0 h-full bg-light-accent dark:bg-dark-accent"
-                                data-level={skill.level}
-                            />
+            <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Skills</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {Object.entries(skillsByCategory).map(([category, skills]) => (
+                    <div key={category} className="flex flex-col gap-3">
+                        <h4 className="font-bold uppercase tracking-wider text-sm text-light-accent dark:text-dark-accent mb-2">{category}</h4>
+                        <div className="flex flex-wrap gap-2">
+                            {skills.map((skill) => (
+                                <span
+                                    key={skill.id}
+                                    className="px-3 py-1 text-sm font-medium border-2 border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg hover:-translate-y-1 transition-transform shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]"
+                                >
+                                    {skill.name}
+                                </span>
+                            ))}
                         </div>
                     </div>
                 ))}

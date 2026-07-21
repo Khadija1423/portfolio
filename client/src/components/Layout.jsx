@@ -173,8 +173,8 @@ const Layout = ({ children }) => {
           </nav>
 
           {/* Right: Icons & Theme Toggle */}
-          <div className={`flex items-center gap-4 justify-end transition-all duration-300 ${scrolled ? 'opacity-0 -translate-y-2 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
-            <div className="hidden sm:flex items-center gap-2 border-r-2 border-light-border dark:border-dark-border pr-4 mr-2">
+          <div className="flex items-center gap-4 justify-end transition-all duration-300">
+            <div className={`hidden sm:flex items-center gap-2 border-r-2 border-light-border dark:border-dark-border pr-4 mr-2 transition-all duration-300 ${scrolled ? 'opacity-0 -translate-y-2 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
               <a
                 href={socialData.github}
                 target="_blank"
@@ -203,7 +203,7 @@ const Layout = ({ children }) => {
 
             <button
               onClick={toggleTheme}
-              className="p-2 border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface rounded-none neo-card-button transition-colors group relative"
+              className="p-2 border-2 border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface rounded-none neo-card-button transition-colors group relative z-50"
               aria-label="Toggle Theme"
             >
               {isDark ? (

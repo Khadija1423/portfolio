@@ -36,26 +36,6 @@ const AboutBento = () => {
       );
     });
 
-    // Animate Stat Numbers
-    const stats = gsap.utils.toArray('.stat-number');
-    stats.forEach((stat) => {
-      const target = parseInt(stat.getAttribute('data-target'), 10);
-      gsap.to(stat, {
-        scrollTrigger: {
-          trigger: stat,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
-        innerHTML: target,
-        duration: 2,
-        ease: 'power3.out',
-        snap: { innerHTML: 1 },
-        onUpdate: function() {
-          stat.innerHTML = Math.ceil(this.targets()[0].innerHTML);
-        }
-      });
-    });
-
   }, { scope: container });
 
   // Group skills by category
@@ -93,20 +73,23 @@ const AboutBento = () => {
           <p className="text-xl font-black">{siteConfig.availability.text}</p>
         </div>
 
-        {/* Card C: Dynamic Local Time & Projects Stat */}
+        {/* Card C: Dynamic Local Time & Location */}
         <div className="bento-reveal neo-card p-6 flex flex-col items-center justify-center text-center">
             <p className="font-bold uppercase tracking-widest text-sm mb-2 text-light-text/60 dark:text-dark-text/60">Local Time</p>
             <DynamicTime />
 
             <div className="w-full border-t-2 border-light-border dark:border-dark-border my-4"></div>
 
-            <p className="font-bold uppercase tracking-widest text-sm mb-1 text-light-text/60 dark:text-dark-text/60">Projects Built</p>
-            <div className="text-4xl font-black text-light-accent dark:text-dark-accent stat-number" data-target="24">0</div>
+            <p className="font-bold uppercase tracking-widest text-sm mb-2 text-light-text/60 dark:text-dark-text/60">Location</p>
+            <div className="text-xl font-black text-light-accent dark:text-dark-accent">Lahore, Pakistan</div>
         </div>
 
-        {/* Skills Section */}
-        <div id="skills" className="bento-reveal neo-card p-8 md:col-span-3 skills-container">
-            <h3 className="text-2xl font-bold mb-6 uppercase border-b-2 border-light-border dark:border-dark-border pb-2 inline-block">Skills</h3>
+      </div>
+
+      {/* Skills Section */}
+      <div id="skills" className="mt-24">
+        <h2 className="text-4xl md:text-5xl font-black mb-8 uppercase tracking-tighter">Skills</h2>
+        <div className="bento-reveal neo-card p-8 skills-container">
             <div className="flex flex-wrap gap-8">
                 {Object.entries(skillsByCategory).map(([category, skills]) => (
                     <div key={category} className="flex flex-col gap-3 min-w-[250px] flex-1">
